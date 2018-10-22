@@ -1,0 +1,31 @@
+{
+  "name": "@ghasemkiani/wdom",
+  "version": "1.0.0",
+  "description": "A wrapped DOM utility",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/ghasemkiani/wdom.git"
+  },
+  "keywords": [
+    "javascript",
+    "nodejs",
+    "dom"
+  ],
+  "author": "Ghasem Kiani",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/ghasemkiani/wdom/issues"
+  },
+  "homepage": "https://gitlab.com/ghasemkiani/wdom#readme",
+  "dependencies": {
+    "@ghasemkiani/commonbase": "^1.0.5"
+  },
+  "devDependencies": {
+    "jsdom": "^12.2.0",
+    "mocha": "^5.2.0"
+  }
+}
