@@ -6,6 +6,8 @@ const {base} = require("@ghasemkiani/wdom/base");
 
 class WNode extends cutil.mixin(Base, base) {}
 cutil.extend(WNode.prototype, {
+	wdocument: null,
+	kind: "node",
 	node: null,
 	chain(f) {
 		if(typeof f === "function") {
@@ -15,6 +17,4 @@ cutil.extend(WNode.prototype, {
 	},
 });
 
-module.exports = {
-	WNode,
-};
+module.exports = {WNode};

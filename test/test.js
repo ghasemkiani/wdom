@@ -8,11 +8,9 @@ const {WDocument} = require("@ghasemkiani/wdom/document");
 describe("jsdom", () => {
 	it("just a test", function () {
 		const {window} = new JSDOM();
-		const {document} = window;
-		console.log(document.documentElement.outerHTML);
-		let wdocument = new WDocument({document})
-		console.log(wdocument);
-		console.log(wdocument.toString());
-		console.log(window.Node.PROCESSING_INSTRUCTION_NODE);
+		let wdocument = new WDocument({window})
+		console.log(wdocument.root.string);
+		console.log(wdocument.root.wnodes[0].string);
+		console.log(wdocument.root.wnodes[1].string);
 	});
 });

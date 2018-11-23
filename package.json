@@ -22,7 +22,7 @@
   },
   "homepage": "https://gitlab.com/ghasemkiani/wdom#readme",
   "dependencies": {
-    "@ghasemkiani/commonbase": "^1.0.5"
+    "@ghasemkiani/commonbase": "git+https://gitlab.com/ghasemkiani/commonbase.git"
   },
   "devDependencies": {
     "jsdom": "^12.2.0",

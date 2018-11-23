@@ -6,6 +6,7 @@ const {base} = require("@ghasemkiani/wdom/base");
 const {WNode} = require("@ghasemkiani/wdom/node");
 const {WElement} = require("@ghasemkiani/wdom/element");
 const {WText} = require("@ghasemkiani/wdom/text");
+const {WComment} = require("@ghasemkiani/wdom/comment");
 
 class WDocument extends cutil.mixin(Base, base) {}
 cutil.extend(WDocument.prototype, {
@@ -18,6 +19,7 @@ cutil.extend(WDocument.prototype, {
 	},
 	set window(window) {
 		this._window = window;
+		this.document = window.document;
 	},
 	_document: null,
 	get document() {
@@ -32,14 +34,22 @@ cutil.extend(WDocument.prototype, {
 	},
 	root: null,
 	wrap(node) {
+		let wdocument = this;
+		const {Node} = this.window;
 		let Type;
 		switch (node.nodeType) {
-			case this.ELEMENT_NODE: Type = WElement; break;
-			case this.ELEMENT_NODE: Type = WElement; break;
-			case this.ELEMENT_NODE: Type = WElement; break;
-			case this.ELEMENT_NODE: Type = WElement; break;
+			case Node.ELEMENT_NODE: Type = WElement; break;
+			case Node.TEXT_NODE: Type = WText; break;
+			case Node.COMMENT_NODE: Type = WComment; break;
+			default: Type = WNode; break;
 		}
-		return new Type({node});
+		let wnode = new Type({wdocument, node});
+		if(node.nodeType === Node.ELEMENT_NODE) {
+			for(let child of node.childNodes) {
+				wnode.wnodes.push(this.wrap(child));
+			}
+		}
+		return wnode;
 	},
 	t(text) {
 		return this.wrap(this.document.createTextNode(text));
