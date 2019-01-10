@@ -9,9 +9,10 @@ cutil.extend(WNode.prototype, {
 	wdocument: null,
 	kind: "node",
 	node: null,
-	chain(f) {
-		if(typeof f === "function") {
-			this.call(f, this);
+	parent: null,
+	del() {
+		if(this.parent) {
+			this.parent.remove(this);
 		}
 		return this;
 	},

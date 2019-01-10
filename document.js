@@ -2,6 +2,7 @@
 
 const {cutil} = require("@ghasemkiani/commonbase/cutil");
 const {Base} = require("@ghasemkiani/commonbase/base");
+const {xutil} = require("@ghasemkiani/wdom/xutil");
 const {base} = require("@ghasemkiani/wdom/base");
 const {WNode} = require("@ghasemkiani/wdom/node");
 const {WElement} = require("@ghasemkiani/wdom/element");
@@ -32,7 +33,15 @@ cutil.extend(WDocument.prototype, {
 		this._document = document;
 		this.root = this.wrap(document.documentElement);
 	},
+	preamble: "",
 	root: null,
+	toString() {
+		let text = this.preamble;
+		if(this.root) {
+			text += this.root.string;
+		}
+		return text;
+	},
 	wrap(node) {
 		let wdocument = this;
 		const {Node} = this.window;
@@ -51,11 +60,26 @@ cutil.extend(WDocument.prototype, {
 		}
 		return wnode;
 	},
-	t(text) {
-		return this.wrap(this.document.createTextNode(text));
+	c(tag, f) {
+		return this.wrap(this.document.createElement(tag)).chain(f);
 	},
-	c(tag, ns) {
-		return this.wrap(this.document.createElementNS(ns, tag));
+	cx(tag, ns, f) {
+		return this.wrap(this.document.createElementNS(ns, tag)).chain(f);
+	},
+	ch(tag, f) {
+		return this.cx(tag, xutil.NS_HTML).chain(f);
+	},
+	cs(tag, f) {
+		return this.cx(tag, xutil.NS_SVG).chain(f);
+	},
+	cm(tag, f) {
+		return this.cx(tag, xutil.NS_MATHML).chain(f);
+	},
+	t(text, f) {
+		return this.wrap(this.document.createTextNode(text)).chain(f);
+	},
+	comment(text, f) {
+		return this.wrap(this.document.createComment(text)).chain(f);
 	},
 });
 
