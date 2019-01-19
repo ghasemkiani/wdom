@@ -14,7 +14,7 @@ cutil.extend(WText.prototype, {
 		this.node.data = text;
 	},
 	toString : function () {
-		return this.node.data.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+		return this.text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 	},
 });
 

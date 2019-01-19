@@ -2,6 +2,7 @@
 
 const {cutil} = require("@ghasemkiani/commonbase/cutil");
 const {WNode} = require("@ghasemkiani/wdom/node");
+const {xutil} = require("@ghasemkiani/wdom/xutil");
 const {Script} = require("@ghasemkiani/wdom/js/script");
 
 class WElement extends WNode {}
@@ -125,6 +126,32 @@ cutil.extend(WElement.prototype, {
 			this.node.setAttribute(name, value);
 		}
 		return this;
+	},
+	get ns() {
+		return this.node.namespaceURI;
+	},
+	set ns(ns) {
+		// This property is read-only.
+		this.node.namespaceURI = ns;
+	},
+	get tag() {
+		return this.node.tagName;
+	},
+	set tag(tag) {
+		// This property is read-only.
+		this.node.tagName = tag;
+	},
+	_empty: null,
+	get empty() {
+		if(cutil.isNil(this._empty)) {
+			if(!this.ns || this.ns === xutil.NS_HTML) {
+				this._empty = /^(base|link|meta|hr|br|wbr|img|source|param|track|area|input|col|frame|embed|keygen|basefont|isindex)$/i.test(this.tag);
+			}
+		}
+		return this._empty;
+	},
+	set empty(empty) {
+		this._empty = empty;
 	},
 });
 
