@@ -24,12 +24,12 @@ cutil.extend(XUtil.prototype, {
 		s = s.replace(/&/g, "&amp;");
 		return s;
 	},
-	toCamelCase: function (name) {
+	toCamelCase(name) {
 		return !name ? "" : cutil.asString(name).replace(/\-(.)/g, function (match, letter) {
 			return letter.toUpperCase();
 		});
 	},
-	toDashed: function (name) {
+	toDashed(name) {
 		return !name ? "" : cutil.asString(name).replace(/[A-Z]/g, function (match) {
 			return "-" + match.toLowerCase();
 		});
