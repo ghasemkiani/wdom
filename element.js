@@ -3,7 +3,6 @@
 const {cutil} = require("@ghasemkiani/commonbase/cutil");
 const {WNode} = require("@ghasemkiani/wdom/node");
 const {xutil} = require("@ghasemkiani/wdom/xutil");
-const {Script} = require("@ghasemkiani/wdom/js/script");
 
 class WElement extends WNode {}
 cutil.extend(WElement.prototype, {
@@ -103,12 +102,6 @@ cutil.extend(WElement.prototype, {
 		this.append(wnode);
 		wnode.chain(f);
 		return this;
-	},
-	cssText(g, f) {
-		return this.t(g, f);
-	},
-	jsText(g, f) {
-		return this.t(new Script().chain(g).toString(), f);
 	},
 	attr(...rest) {
 		if(rest.length === 1) {
