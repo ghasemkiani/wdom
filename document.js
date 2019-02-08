@@ -67,6 +67,7 @@ let parseTag = s => {
 
 class WDocument extends cutil.mixin(Base, base) {}
 cutil.extend(WDocument.prototype, {
+	mime: "text/html",
 	_window:null,
 	get window() {
 		if(!this._window) {

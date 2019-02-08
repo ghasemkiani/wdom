@@ -18,7 +18,29 @@ cutil.extend(WElement.prototype, {
 		this._wnodes = wnodes;
 	},
 	toString() {
-		return this.node.outerHTML;
+		// return this.node.outerHTML;
+		let s = "";
+		s += `<${this.tag}`;
+		let xmlnsUsed = false;
+		if (!cutil.isNil(this.ns) && (!this.parent || (this.parent.ns !== this.ns))) {
+			s += ` xmlns="${this.ns}"`;
+			xmlnsUsed = true;
+		}
+		for(let {name, value} of this.node.attributes) {
+			if(!/^xmlns$/i.test(name) || !xmlnsUsed) {
+				s += ` ${name}="${xutil.escape(value)}"`;
+			}
+		}
+		if(this.empty && this.wnodes.length === 0) {
+			s += `/>`;
+		} else {
+			s += `>`;
+			for(let wnode of this.wnodes) {
+				s += wnode.string;
+			}
+			s += `</${this.tag}>`;
+		}
+		return s;
 	},
 	remove(wnode) {
 		var index = this.wnodes.indexOf(wnode);
@@ -117,6 +139,26 @@ cutil.extend(WElement.prototype, {
 		} else if(rest.length > 1) {
 			let [name, value] = rest;
 			this.node.setAttribute(name, value);
+		}
+		return this;
+	},
+	css(...rest) {
+		if(rest.length === 1) {
+			if(cutil.isObject(rest[0])) {
+				let map = cutil.asObject(rest[0]);
+				for(let [name, value] of Object.entries(map)) {
+					name = xutil.toCamelCase(name);
+					this.node.style[name] = value;
+				}
+			} else {
+				let name = cutil.asString(rest[0]);
+				name = xutil.toCamelCase(name);
+				return this.node.style[name];
+			}
+		} else if(rest.length > 1) {
+			let [name, value] = rest;
+			name = xutil.toCamelCase(name);
+			this.node.style[name] = value;
 		}
 		return this;
 	},

@@ -3,8 +3,72 @@
 const {Base} = require("@ghasemkiani/commonbase/base");
 const {cutil} = require("@ghasemkiani/commonbase/cutil");
 const {xutil} = require("@ghasemkiani/wdom/xutil");
-const {Rule} = require("@ghasemkiani/wdom/css/rule");
 const {base} = require("@ghasemkiani/wdom/base");
+const {Style} = require("@ghasemkiani/wdom/css/style");
+
+class RuleSet extends cutil.mixin(Base, base) {}
+cutil.extend(RuleSet.prototype, {
+	selector : "@media screen",
+	_stylesheet : null,
+	get stylesheet() {
+		if(!this._stylesheet) {
+			this._stylesheet = new Stylesheet();
+		}
+		return this._stylesheet;
+	},
+	set stylesheet(stylesheet) {
+		this._stylesheet = stylesheet;
+	},
+	get cssText() {
+		return this.stylesheet.toString();
+	},
+	toString() {
+		return !this.selector ? "" : this.selector + "{" + this.cssText + "}";
+	},
+});
+
+class Rule extends cutil.mixin(Base, base) {}
+cutil.extend(Rule.prototype, {
+	selector : "*",
+	_style : null,
+	get style() {
+		if(!this._style) {
+			this._style = new Style();
+		}
+		return this._style;
+	},
+	set style(style) {
+		this._style = style;
+	},
+	get cssText() {
+		return this.style.toString();
+	},
+	set cssText(cssText) {
+		this.style.fromString(cssText);
+	},
+	set css(css) {
+		this.setAll(css);
+	},
+	fromString(string) {
+		cutil.asString(string).replace(/^([^{]*){(.*)}\s*$/, function (match, selector, cssText, string) {
+			this.selector = selector.trim();
+			this.cssText = cssText;
+		});
+		return this;
+	},
+	toString() {
+		return !this.selector ? "" : this.selector + "{" + this.cssText + "}";
+	},
+	get(...rest) {
+		return this.style.get(...rest);
+	},
+	set(...rest) {
+		this.style.set(...rest);
+	},
+	setAll(...rest) {
+		this.style.setAll(...rest);
+	},
+});
 
 class Stylesheet extends cutil.mixin(Base, base) {}
 cutil.extend(Stylesheet.prototype, {
@@ -42,4 +106,4 @@ cutil.extend(Stylesheet.prototype, {
 	},
 });
 
-module.exports = {Stylesheet};
+module.exports = {Stylesheet, Rule, RuleSet};
