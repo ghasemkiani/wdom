@@ -1,6 +1,6 @@
 {
   "name": "@ghasemkiani/wdom",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "A wrapped DOM utility",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,7 @@
   },
   "homepage": "https://gitlab.com/ghasemkiani/wdom#readme",
   "dependencies": {
-    "@ghasemkiani/commonbase": "git+https://gitlab.com/ghasemkiani/commonbase.git"
+    "@ghasemkiani/commonbase": "github:ghasemkiani/commonbase"
   },
   "devDependencies": {
     "jsdom": "^12.2.0",
