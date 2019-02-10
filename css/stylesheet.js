@@ -27,7 +27,12 @@ cutil.extend(RuleSet.prototype, {
 	},
 });
 
-class Rule extends cutil.mixin(Base, base) {}
+class Instruction extends cutil.mixin(Base, base) {}
+cutil.extend(Instruction.prototype, {
+	//
+});
+
+class Rule extends cutil.mixin(Instruction, base) {}
 cutil.extend(Rule.prototype, {
 	selector : "*",
 	_style : null,
@@ -100,6 +105,11 @@ cutil.extend(Stylesheet.prototype, {
 		this.rules.push(ruleset);
 		ruleset.stylesheet.chain(f);
 		return ruleset;
+	},
+	instruction(string) {
+		let instruction = new Instruction({string});
+		this.rules.push(instruction);
+		return instruction;
 	},
 	toString() {
 		return this.rules.map(rule => rule.string).filter(s => !!s).join("\n");
