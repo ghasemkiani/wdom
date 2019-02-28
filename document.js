@@ -71,7 +71,7 @@ cutil.extend(WDocument.prototype, {
 	_window:null,
 	get window() {
 		if(!this._window) {
-			this._window = global;
+			this._window = cutil.global().window;
 		}
 		return this._window;
 	},
@@ -91,7 +91,16 @@ cutil.extend(WDocument.prototype, {
 		this.root = this.wrap(document.documentElement);
 	},
 	preamble: "",
-	root: null,
+	_root: null,
+	get root() {
+		if(!this._root && this.document) {
+			this.root = this.wrap(this.document.documentElement);
+		}
+		return this._root;
+	},
+	set root(root) {
+		this._root = root;
+	},
 	toString() {
 		let text = this.preamble;
 		if(this.root) {
