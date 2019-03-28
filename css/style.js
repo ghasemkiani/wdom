@@ -1,5 +1,7 @@
 //	@ghasemkiani/wdom/css/style
 
+const {EventEmitter} = require("events");
+
 const {Base} = require("@ghasemkiani/commonbase/base");
 const {cutil} = require("@ghasemkiani/commonbase/cutil");
 const {xutil} = require("@ghasemkiani/wdom/xutil");
@@ -31,7 +33,8 @@ class Style extends cutil.mixin(Base, base) {
 		return this;
 	}
 	toString() {
-		return Object.entries(this).map(([k, v]) => cutil.isNil(v) ? "" : xutil.toDashed(k) + ":" + v + ";").join("");
+		let keys = Object.keys(new EventEmitter());
+		return Object.entries(this).filter(([k, v]) => (keys.indexOf(k) < 0)).map(([k, v]) => cutil.isNil(v) ? "" : xutil.toDashed(k) + ":" + v + ";").join("");
 	}
 	fromString(s) {
 		s = cutil.asString(s);
