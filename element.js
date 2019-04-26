@@ -176,6 +176,13 @@ cutil.extend(WElement.prototype, {
 		// This property is read-only.
 		this.node.tagName = tag;
 	},
+	get name() {
+		return this.node.localName;
+	},
+	set name(name) {
+		// This property is read-only.
+		this.node.localName = name;
+	},
 	_empty: null,
 	get empty() {
 		if(cutil.isNil(this._empty)) {
