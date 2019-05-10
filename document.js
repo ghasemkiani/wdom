@@ -124,7 +124,9 @@ cutil.extend(WDocument.prototype, {
 		let wnode = new Type({wdocument, node});
 		if(node.nodeType === Node.ELEMENT_NODE) {
 			for(let child of node.childNodes) {
-				wnode.wnodes.push(this.wrap(child));
+				let wn = this.wrap(child);
+				wn.parent = wnode;
+				wnode.wnodes.push(wn);
 			}
 		}
 		return wnode;
