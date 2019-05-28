@@ -31,21 +31,22 @@ class Thread extends Base {
 					}
 				};
 			}, {}).dataUri);
+			let promises = this.promises;
 			this._worker.onmessage = ({data}) => {
 				let [method, ...rest] = JSON.parse(data);
 				if(method === "resolve") {
 					let [key, result] = rest;
-					let promise = this.promises[key];
+					let promise = promises[key];
 					if(promise) {
 						promise.resolve(result);
-						delete this.promises[key];
+						delete promises[key];
 					}
 				} else if(method === "reject") {
 					let [key, message] = rest;
-					let promise = this.promises[key];
+					let promise = promises[key];
 					if(promise) {
 						promise.reject(message);
-						delete this.promises[key];
+						delete promises[key];
 					}
 				} else {
 					this[method](...rest);
