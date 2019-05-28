@@ -63,7 +63,9 @@ class Thread extends Base {
 	work(f, ...rest) {
 		f = f || (() => {});
 		let key = cutil.srand(16);
-		this.promises[key] = new Promise();
+		new Promise((resolve, reject) => {
+			this.promises[key] = {resolve, reject};
+		});
 		this.worker.postMessage(JSON.stringify([key, `(${f.toString()})`, ...rest]));
 	}
 	terminate() {
