@@ -142,7 +142,7 @@ cutil.extend(WDocument.prototype, {
 	ch(tag, f) {
 		return this.cx(tag, xutil.NS_HTML).chain(f);
 	},
-	cs(tag, f) {
+	cg(tag, f) {
 		return this.cx(tag, xutil.NS_SVG).chain(f);
 	},
 	cm(tag, f) {

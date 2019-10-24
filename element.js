@@ -101,8 +101,8 @@ cutil.extend(WElement.prototype, {
 		wnode.chain(f);
 		return this;
 	},
-	cs(tag, f) {
-		let wnode = this.wdocument.cs(tag);
+	cg(tag, f) {
+		let wnode = this.wdocument.cg(tag);
 		this.append(wnode);
 		wnode.chain(f);
 		return this;
