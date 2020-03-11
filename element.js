@@ -19,7 +19,7 @@ cutil.extend(WElement.prototype, {
 	},
 	get innerString() {
 		return this.toInnerString();
-	}
+	},
 	toString() {
 		// return this.node.outerHTML;
 		let s = "";
