@@ -42,6 +42,9 @@ cutil.extend(WElement.prototype, {
 		}
 		return s;
 	},
+	toInnerString() {
+		return this.wnodes.map(wnode => wnode.string).join("");
+	},
 	remove(wnode) {
 		var index = this.wnodes.indexOf(wnode);
 		if (index >= 0) {
