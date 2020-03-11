@@ -17,6 +17,9 @@ cutil.extend(WElement.prototype, {
 	set wnodes(wnodes) {
 		this._wnodes = wnodes;
 	},
+	get innerString() {
+		return this.toInnerString();
+	}
 	toString() {
 		// return this.node.outerHTML;
 		let s = "";
