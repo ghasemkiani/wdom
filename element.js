@@ -66,6 +66,14 @@ cutil.extend(WElement.prototype, {
 		this.wnodes.push(wnode);
 		return wnode;
 	},
+	appendAll(wnodes) {
+		if(!wnodes) {
+			wnodes = [];
+		} else if(!Array.isArray(wnodes)) {
+			wnodes = [wnodes];
+		}
+		return wnodes.map(wnode => this.append(wnode));
+	},
 	cl() {
 		while(this.wnodes.length > 0) {
 			this.remove(this.wnodes[0]);

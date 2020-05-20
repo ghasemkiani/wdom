@@ -9,7 +9,7 @@ const {WElement} = require("@ghasemkiani/wdom/element");
 const {WText} = require("@ghasemkiani/wdom/text");
 const {WComment} = require("@ghasemkiani/wdom/comment");
 
-let parseTag = s => {
+const parseTag = s => {
 	let res = {
 		tag: "",
 		id: "",
@@ -65,52 +65,46 @@ let parseTag = s => {
 	};
 };
 
-class WDocument extends cutil.mixin(Base, base) {}
-cutil.extend(WDocument.prototype, {
-	mime: "text/html",
+class WDocument extends cutil.mixin(Base, base) {
 	getWindow() {
 		return cutil.global().window;
-	},
-	_window:null,
+	}
 	get window() {
 		if(!this._window) {
 			this._window = this.getWindow();
 		}
 		return this._window;
-	},
+	}
 	set window(window) {
 		this._window = window;
 		this.document = window.document;
-	},
-	_document: null,
+	}
 	get document() {
 		if(!this._document) {
 			this._document = this.window.document;
 		}
 		return this._document;
-	},
+	}
 	set document(document) {
 		this._document = document;
 		this.root = this.wrap(document.documentElement);
-	},
-	preamble: "",
-	_root: null,
+	}
 	get root() {
 		if(!this._root && this.document) {
 			this.root = this.wrap(this.document.documentElement);
 		}
 		return this._root;
-	},
+	}
 	set root(root) {
 		this._root = root;
-	},
+	}
 	toString() {
 		let text = this.preamble;
 		if(this.root) {
 			text += this.root.string;
 		}
 		return text;
-	},
+	}
 	wrap(node) {
 		let wdocument = this;
 		const {Node} = this.window;
@@ -130,30 +124,59 @@ cutil.extend(WDocument.prototype, {
 			}
 		}
 		return wnode;
-	},
+	}
 	c(tag, f) {
 		let res = parseTag(tag);
 		return this.wrap(this.document.createElement(res.tag)).chain(res.f).chain(f);
-	},
+	}
 	cx(tag, ns, f) {
 		let res = parseTag(tag);
 		return this.wrap(this.document.createElementNS(ns, res.tag)).chain(res.f).chain(f);
-	},
+	}
 	ch(tag, f) {
 		return this.cx(tag, xutil.NS_HTML).chain(f);
-	},
+	}
 	cg(tag, f) {
 		return this.cx(tag, xutil.NS_SVG).chain(f);
-	},
+	}
 	cm(tag, f) {
 		return this.cx(tag, xutil.NS_MATHML).chain(f);
-	},
+	}
 	t(text, f) {
 		return this.wrap(this.document.createTextNode(text)).chain(f);
-	},
+	}
 	comment(text, f) {
 		return this.wrap(this.document.createComment(text)).chain(f);
-	},
+	}
+	stringAll(wnodes) {
+		if(!wnodes) {
+			wnodes = [];
+		} else if(!Array.isArray(wnodes)) {
+			wnodes = [wnodes];
+		}
+		return (wnodes || []).map(wnode => cutil.asString(wnode)).join("");
+	}
+	clone(wnode) {
+		return this.cloneAll([wnode])[0];
+	}
+	cloneAll(wnodes) {
+		if(!wnodes) {
+			wnodes = [];
+		} else if(!Array.isArray(wnodes)) {
+			wnodes = [wnodes];
+		}
+		let dummy = this.c("dummy");
+		dummy.node.innerHTML = this.stringAll(wnodes);
+		dummy = this.wrap(dummy.node);
+		return dummy.wnodes;
+	}
+}
+cutil.extend(WDocument.prototype, {
+	mime: "text/html",
+	_window:null,
+	_document: null,
+	preamble: "",
+	_root: null,
 });
 
 module.exports = {WDocument};
