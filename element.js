@@ -4,22 +4,19 @@ const {cutil} = require("@ghasemkiani/commonbase/cutil");
 const {WNode} = require("@ghasemkiani/wdom/node");
 const {xutil} = require("@ghasemkiani/wdom/xutil");
 
-class WElement extends WNode {}
-cutil.extend(WElement.prototype, {
-	kind: "element",
-	_wnodes: null,
+class WElement extends WNode {
 	get wnodes() {
 		if(!this._wnodes) {
 			this._wnodes = [];
 		}
 		return this._wnodes;
-	},
+	}
 	set wnodes(wnodes) {
 		this._wnodes = wnodes;
-	},
+	}
 	get innerString() {
 		return this.toInnerString();
-	},
+	}
 	toString() {
 		// return this.node.outerHTML;
 		let s = "";
@@ -44,10 +41,10 @@ cutil.extend(WElement.prototype, {
 			s += `</${this.tag}>`;
 		}
 		return s;
-	},
+	}
 	toInnerString() {
 		return this.wnodes.map(wnode => wnode.string).join("");
-	},
+	}
 	remove(wnode) {
 		var index = this.wnodes.indexOf(wnode);
 		if (index >= 0) {
@@ -56,7 +53,7 @@ cutil.extend(WElement.prototype, {
 			wnode.parent = null;
 		}
 		return wnode;
-	},
+	}
 	append(wnode) {
 		if(wnode.parent) {
 			wnode.parent.remove(wnode);
@@ -65,7 +62,7 @@ cutil.extend(WElement.prototype, {
 		wnode.parent = this;
 		this.wnodes.push(wnode);
 		return wnode;
-	},
+	}
 	appendAll(wnodes) {
 		if(!wnodes) {
 			wnodes = [];
@@ -73,13 +70,13 @@ cutil.extend(WElement.prototype, {
 			wnodes = [wnodes];
 		}
 		return wnodes.map(wnode => this.append(wnode));
-	},
+	}
 	cl() {
 		while(this.wnodes.length > 0) {
 			this.remove(this.wnodes[0]);
 		}
 		return this;
-	},
+	}
 	insertBefore(wnode, wnode1) {
 		if(wnode.parent) {
 			wnode.parent.remove(wnode);
@@ -96,49 +93,49 @@ cutil.extend(WElement.prototype, {
 		wnode.parent = this;
 		this.wnodes.push(wnode);
 		return wnode;
-	},
+	}
 	c(tag, f) {
 		let wnode = this.wdocument.c(tag);
 		this.append(wnode);
 		wnode.chain(f);
 		return this;
-	},
+	}
 	cx(tag, ns, f) {
 		let wnode = this.wdocument.cx(tag, ns);
 		this.append(wnode);
 		wnode.chain(f);
 		return this;
-	},
+	}
 	ch(tag, f) {
 		let wnode = this.wdocument.ch(tag);
 		this.append(wnode);
 		wnode.chain(f);
 		return this;
-	},
+	}
 	cg(tag, f) {
 		let wnode = this.wdocument.cg(tag);
 		this.append(wnode);
 		wnode.chain(f);
 		return this;
-	},
+	}
 	cm(tag, f) {
 		let wnode = this.wdocument.cm(tag);
 		this.append(wnode);
 		wnode.chain(f);
 		return this;
-	},
+	}
 	t(text, f) {
 		let wnode = this.wdocument.t(text);
 		this.append(wnode);
 		wnode.chain(f);
 		return this;
-	},
+	}
 	comment(text, f) {
 		let wnode = this.wdocument.comment(text);
 		this.append(wnode);
 		wnode.chain(f);
 		return this;
-	},
+	}
 	attr(...rest) {
 		if(rest.length === 1) {
 			if(cutil.isObject(rest[0])) {
@@ -155,7 +152,7 @@ cutil.extend(WElement.prototype, {
 			this.node.setAttribute(name, value);
 		}
 		return this;
-	},
+	}
 	css(...rest) {
 		if(rest.length === 1) {
 			if(cutil.isObject(rest[0])) {
@@ -175,29 +172,28 @@ cutil.extend(WElement.prototype, {
 			this.node.style[name] = value;
 		}
 		return this;
-	},
+	}
 	get ns() {
 		return this.node.namespaceURI;
-	},
+	}
 	set ns(ns) {
 		// This property is read-only.
 		this.node.namespaceURI = ns;
-	},
+	}
 	get tag() {
 		return this.node.tagName;
-	},
+	}
 	set tag(tag) {
 		// This property is read-only.
 		this.node.tagName = tag;
-	},
+	}
 	get name() {
 		return this.node.localName;
-	},
+	}
 	set name(name) {
 		// This property is read-only.
 		this.node.localName = name;
-	},
-	_empty: null,
+	}
 	get empty() {
 		if(cutil.isNil(this._empty)) {
 			if(!this.ns || this.ns === xutil.NS_HTML) {
@@ -205,10 +201,18 @@ cutil.extend(WElement.prototype, {
 			}
 		}
 		return this._empty;
-	},
+	}
 	set empty(empty) {
 		this._empty = empty;
-	},
+	}
+	toText() {
+		return this.wnodes.map(wnode => wnode.toText()).join("");
+	}
+}
+cutil.extend(WElement.prototype, {
+	kind: "element",
+	_wnodes: null,
+	_empty: null,
 });
 
 module.exports = {WElement};

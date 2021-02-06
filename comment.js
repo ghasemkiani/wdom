@@ -3,19 +3,20 @@
 const {cutil} = require("@ghasemkiani/commonbase/cutil");
 const {WNode} = require("@ghasemkiani/wdom/node");
 
-class WComment extends WNode {}
-cutil.extend(WComment.prototype, {
-	kind: "comment",
+class WComment extends WNode {
 	get text() {
 		return this.node.data;
-	},
+	}
 	set text(text) {
 		// Is this writable?
 		this.node.data = text;
-	},
-	toString : function () {
+	}
+	toString() {
 		return "<!--" + this.node.data + "-->";
-	},
+	}
+}
+cutil.extend(WComment.prototype, {
+	kind: "comment",
 });
 
 module.exports = {WComment};

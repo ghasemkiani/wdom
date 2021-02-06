@@ -156,6 +156,14 @@ class WDocument extends cutil.mixin(Base, base) {
 		}
 		return (wnodes || []).map(wnode => cutil.asString(wnode)).join("");
 	}
+	textAll(wnodes) {
+		if(!wnodes) {
+			wnodes = [];
+		} else if(!Array.isArray(wnodes)) {
+			wnodes = [wnodes];
+		}
+		return wnodes.map(wnode => wnode.toText()).join("");
+	}
 	clone(wnode) {
 		return this.cloneAll([wnode])[0];
 	}
