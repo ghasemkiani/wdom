@@ -173,6 +173,21 @@ class WElement extends WNode {
 		}
 		return this;
 	}
+	cls(classes) {
+		let o = cutil.asString(this.attr("class")).split(/\s+/g).reduce(((o, s) => ((o[s] = true), o)), {});
+		if(!classes) {
+			return o;
+		} else {
+			for(let [s, b] of Object.entries(classes)) {
+				if(/toggle/i.test(b)) {
+					o[s] = !o[s];
+				} else {
+					o[s] = !!b;
+				}
+			}
+			this.attr("class", Object.entries(o).filter(([s, b]) => !!b).map(([s, b]) => s).join(" "));
+		}
+	}
 	get ns() {
 		return this.node.namespaceURI;
 	}
