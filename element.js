@@ -106,6 +106,9 @@ class WElement extends WNode {
 		wnode.chain(f);
 		return this;
 	}
+	cc(tag, f) {
+		return this.cx(tag, this.ns, f);
+	}
 	ch(tag, f) {
 		let wnode = this.wdocument.ch(tag);
 		this.append(wnode);
@@ -152,6 +155,20 @@ class WElement extends WNode {
 			this.node.setAttribute(name, value);
 		}
 		return this;
+	}
+	attrs(...rest) {
+		if(rest.length === 0) {
+			let arr = [];
+			for(let {name, value} of this.node.attributes) {
+				arr.push({name, value});
+			}
+			return arr;
+		} else {
+			let arr = rest[0];
+			for(let {name, value} of arr) {
+				this.attr(name, value);
+			}
+		}
 	}
 	css(...rest) {
 		if(rest.length === 1) {
