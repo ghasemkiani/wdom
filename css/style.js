@@ -2,8 +2,8 @@
 
 const {EventEmitter} = require("events");
 
-const {Base} = require("@ghasemkiani/commonbase/base");
-const {cutil} = require("@ghasemkiani/commonbase/cutil");
+const {Obj: Base} = require("@ghasemkiani/base/obj");
+const {cutil} = require("@ghasemkiani/base/cutil");
 const {xutil} = require("@ghasemkiani/wdom/xutil");
 const {base} = require("@ghasemkiani/wdom/base");
 
@@ -34,7 +34,7 @@ class Style extends cutil.mixin(Base, base) {
 	}
 	toString() {
 		let keys = Object.keys(new EventEmitter());
-		return Object.entries(this).filter(([k, v]) => (keys.indexOf(k) < 0)).map(([k, v]) => cutil.isNil(v) ? "" : xutil.toDashed(k) + ":" + v + ";").join("");
+		return Object.entries(this).filter(([k, v]) => (keys.indexOf(k) < 0)).map(([k, v]) => cutil.isNil(v) ? "" : xutil.toDashed(k) + ":" + (cutil.asString(v) || '""') + ";").join("");
 	}
 	fromString(s) {
 		s = cutil.asString(s);

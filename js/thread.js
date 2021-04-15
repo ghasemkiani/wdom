@@ -1,7 +1,7 @@
 //	@ghasemkiani/wdom/js/thread
 
-const {cutil} = require("@ghasemkiani/commonbase/cutil");
-const {Base} = require("@ghasemkiani/commonbase/base");
+const {cutil} = require("@ghasemkiani/base/cutil");
+const {Obj: Base} = require("@ghasemkiani/base/obj");
 const {Script} = require("@ghasemkiani/wdom/js/script");
 
 class Thread extends Base {

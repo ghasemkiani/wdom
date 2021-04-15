@@ -1,7 +1,7 @@
 //	@ghasemkiani/wdom/js/script
 
-const {cutil} = require("@ghasemkiani/commonbase/cutil");
-const {Base} = require("@ghasemkiani/commonbase/base");
+const {cutil} = require("@ghasemkiani/base/cutil");
+const {Obj: Base} = require("@ghasemkiani/base/obj");
 const {base} = require("@ghasemkiani/wdom/base");
 
 class Script extends cutil.mixin(Base, base) {}

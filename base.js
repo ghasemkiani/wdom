@@ -1,7 +1,7 @@
 //	@ghasemkiani/wdom/base
 
-const {cutil} = require("@ghasemkiani/commonbase/cutil");
-const {serializable} = require("@ghasemkiani/commonbase/serializable");
+const {cutil} = require("@ghasemkiani/base/cutil");
+const {serializable} = require("@ghasemkiani/base/serializable");
 
 const base = cutil.extend({}, serializable, {
 	chain(f, ...rest) {

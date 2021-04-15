@@ -1,6 +1,6 @@
 //	@ghasemkiani/wdom/text
 
-const {cutil} = require("@ghasemkiani/commonbase/cutil");
+const {cutil} = require("@ghasemkiani/base/cutil");
 const {WNode} = require("@ghasemkiani/wdom/node");
 
 class WText extends WNode {

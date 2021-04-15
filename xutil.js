@@ -1,7 +1,7 @@
 //	@ghasemkiani/wdom/xutil
 
-const {cutil} = require("@ghasemkiani/commonbase/cutil");
-const {Base} = require("@ghasemkiani/commonbase/base");
+const {cutil} = require("@ghasemkiani/base/cutil");
+const {Obj: Base} = require("@ghasemkiani/base/obj");
 
 class XUtil extends Base {
 	unescape(s) {

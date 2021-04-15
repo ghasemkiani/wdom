@@ -1,7 +1,7 @@
 //	@ghasemkiani/wdom/css/stylesheet
 
-const {Base} = require("@ghasemkiani/commonbase/base");
-const {cutil} = require("@ghasemkiani/commonbase/cutil");
+const {Obj: Base} = require("@ghasemkiani/base/obj");
+const {cutil} = require("@ghasemkiani/base/cutil");
 const {xutil} = require("@ghasemkiani/wdom/xutil");
 const {base} = require("@ghasemkiani/wdom/base");
 const {Style} = require("@ghasemkiani/wdom/css/style");

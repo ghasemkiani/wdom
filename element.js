@@ -1,6 +1,6 @@
 //	@ghasemkiani/wdom/element
 
-const {cutil} = require("@ghasemkiani/commonbase/cutil");
+const {cutil} = require("@ghasemkiani/base/cutil");
 const {WNode} = require("@ghasemkiani/wdom/node");
 const {xutil} = require("@ghasemkiani/wdom/xutil");
 
@@ -191,7 +191,7 @@ class WElement extends WNode {
 		return this;
 	}
 	cls(classes) {
-		let o = cutil.asString(this.attr("class")).split(/\s+/g).reduce(((o, s) => ((o[s] = true), o)), {});
+		let o = cutil.asString(this.attr("class")).split(/\s+/g).filter(s => !!s).reduce(((o, s) => ((o[s] = true), o)), {});
 		if(!classes) {
 			return o;
 		} else {

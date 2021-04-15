@@ -1,7 +1,7 @@
 //	@ghasemkiani/wdom/document
 
-const {cutil} = require("@ghasemkiani/commonbase/cutil");
-const {Base} = require("@ghasemkiani/commonbase/base");
+const {cutil} = require("@ghasemkiani/base/cutil");
+const {Obj: Base} = require("@ghasemkiani/base/obj");
 const {xutil} = require("@ghasemkiani/wdom/xutil");
 const {base} = require("@ghasemkiani/wdom/base");
 const {WNode} = require("@ghasemkiani/wdom/node");
@@ -176,7 +176,7 @@ class WDocument extends cutil.mixin(Base, base) {
 		let dummy = this.c("dummy");
 		dummy.node.innerHTML = this.stringAll(wnodes);
 		dummy = this.wrap(dummy.node);
-		return dummy.wnodes;
+		return dummy.wnodes.slice(0);
 	}
 }
 cutil.extend(WDocument.prototype, {
