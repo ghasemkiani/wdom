@@ -1,13 +1,13 @@
 //	@ghasemkiani/wdom/css/style
 
-const {EventEmitter} = require("events");
+import {EventEmitter} from "events";
 
-const {Obj: Base} = require("@ghasemkiani/base/obj");
-const {cutil} = require("@ghasemkiani/base/cutil");
-const {xutil} = require("@ghasemkiani/wdom/xutil");
-const {base} = require("@ghasemkiani/wdom/base");
+import {Obj} from "@ghasemkiani/base";
+import {cutil} from "@ghasemkiani/base";
+import {xutil} from "../xutil.js";
+import {base} from "../base.js";
 
-class Style extends cutil.mixin(Base, base) {
+class Style extends cutil.mixin(Obj, base) {
 	get(k) {
 		k = xutil.toCamelCase(k);
 		return this[k];
@@ -58,4 +58,4 @@ cutil.extend(Style.prototype, {
 	//
 });
 
-module.exports = {Style};
+export {Style};

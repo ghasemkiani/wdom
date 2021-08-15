@@ -1,13 +1,13 @@
 //	@ghasemkiani/wdom/document
 
-const {cutil} = require("@ghasemkiani/base/cutil");
-const {Obj: Base} = require("@ghasemkiani/base/obj");
-const {xutil} = require("@ghasemkiani/wdom/xutil");
-const {base} = require("@ghasemkiani/wdom/base");
-const {WNode} = require("@ghasemkiani/wdom/node");
-const {WElement} = require("@ghasemkiani/wdom/element");
-const {WText} = require("@ghasemkiani/wdom/text");
-const {WComment} = require("@ghasemkiani/wdom/comment");
+import {cutil} from "@ghasemkiani/base";
+import {Obj} from "@ghasemkiani/base";
+import {xutil} from "./xutil.js";
+import {base} from "./base.js";
+import {WNode} from "./node.js";
+import {WElement} from "./element.js";
+import {WText} from "./text.js";
+import {WComment} from "./comment.js";
 
 const parseTag = s => {
 	let res = {
@@ -65,7 +65,7 @@ const parseTag = s => {
 	};
 };
 
-class WDocument extends cutil.mixin(Base, base) {
+class WDocument extends cutil.mixin(Obj, base) {
 	getWindow() {
 		return cutil.global().window;
 	}
@@ -187,4 +187,4 @@ cutil.extend(WDocument.prototype, {
 	_root: null,
 });
 
-module.exports = {WDocument};
+export {WDocument};

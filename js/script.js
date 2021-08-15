@@ -1,10 +1,10 @@
 //	@ghasemkiani/wdom/js/script
 
-const {cutil} = require("@ghasemkiani/base/cutil");
-const {Obj: Base} = require("@ghasemkiani/base/obj");
-const {base} = require("@ghasemkiani/wdom/base");
+import {cutil} from "@ghasemkiani/base";
+import {Obj} from "@ghasemkiani/base";
+import {base} from "../base.js";
 
-class Script extends cutil.mixin(Base, base) {}
+class Script extends cutil.mixin(Obj, base) {}
 cutil.extend(Script.prototype, {
 	mime: "application/javascript",
 	_items: null,
@@ -26,4 +26,4 @@ cutil.extend(Script.prototype, {
 	},
 });
 
-module.exports = {Script};
+export {Script};

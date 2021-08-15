@@ -1,12 +1,12 @@
 //	@ghasemkiani/wdom/css/stylesheet
 
-const {Obj: Base} = require("@ghasemkiani/base/obj");
-const {cutil} = require("@ghasemkiani/base/cutil");
-const {xutil} = require("@ghasemkiani/wdom/xutil");
-const {base} = require("@ghasemkiani/wdom/base");
-const {Style} = require("@ghasemkiani/wdom/css/style");
+import {Obj} from "@ghasemkiani/base";
+import {cutil} from "@ghasemkiani/base";
+import {xutil} from "../xutil.js";
+import {base} from "../base.js";
+import {Style} from "./style.js";
 
-class RuleSet extends cutil.mixin(Base, base) {}
+class RuleSet extends cutil.mixin(Obj, base) {}
 cutil.extend(RuleSet.prototype, {
 	selector : "@media screen",
 	_stylesheet : null,
@@ -27,7 +27,7 @@ cutil.extend(RuleSet.prototype, {
 	},
 });
 
-class Instruction extends cutil.mixin(Base, base) {}
+class Instruction extends cutil.mixin(Obj, base) {}
 cutil.extend(Instruction.prototype, {
 	//
 });
@@ -75,7 +75,7 @@ cutil.extend(Rule.prototype, {
 	},
 });
 
-class Stylesheet extends cutil.mixin(Base, base) {}
+class Stylesheet extends cutil.mixin(Obj, base) {}
 cutil.extend(Stylesheet.prototype, {
 	mime: "text/css",
 	_rules : null,
@@ -116,4 +116,4 @@ cutil.extend(Stylesheet.prototype, {
 	},
 });
 
-module.exports = {Stylesheet, Rule, RuleSet};
+export {Stylesheet, Rule, RuleSet};

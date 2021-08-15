@@ -1,10 +1,10 @@
 //	@ghasemkiani/wdom/node
 
-const {cutil} = require("@ghasemkiani/base/cutil");
-const {Obj: Base} = require("@ghasemkiani/base/obj");
-const {base} = require("@ghasemkiani/wdom/base");
+import {cutil} from "@ghasemkiani/base";
+import {Obj} from "@ghasemkiani/base";
+import {base} from "./base.js";
 
-class WNode extends cutil.mixin(Base, base) {
+class WNode extends cutil.mixin(Obj, base) {
 	del() {
 		if(this.parent) {
 			this.parent.remove(this);
@@ -22,4 +22,4 @@ cutil.extend(WNode.prototype, {
 	parent: null,
 });
 
-module.exports = {WNode};
+export {WNode};

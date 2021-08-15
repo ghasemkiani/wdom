@@ -1,7 +1,7 @@
 //	@ghasemkiani/wdom/comment
 
-const {cutil} = require("@ghasemkiani/base/cutil");
-const {WNode} = require("@ghasemkiani/wdom/node");
+import {cutil} from "@ghasemkiani/base";
+import {WNode} from "./node.js";
 
 class WComment extends WNode {
 	get text() {
@@ -19,4 +19,4 @@ cutil.extend(WComment.prototype, {
 	kind: "comment",
 });
 
-module.exports = {WComment};
+export {WComment};

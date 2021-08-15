@@ -1,7 +1,7 @@
 //	@ghasemkiani/wdom/base
 
-const {cutil} = require("@ghasemkiani/base/cutil");
-const {serializable} = require("@ghasemkiani/base/serializable");
+import {cutil} from "@ghasemkiani/base";
+import {serializable} from "@ghasemkiani/base";
 
 const base = cutil.extend({}, serializable, {
 	chain(f, ...rest) {
@@ -12,4 +12,4 @@ const base = cutil.extend({}, serializable, {
 	},
 });
 
-module.exports = {base};
+export {base};

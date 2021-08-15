@@ -1,10 +1,10 @@
 //	@ghasemkiani/wdom/js/thread
 
-const {cutil} = require("@ghasemkiani/base/cutil");
-const {Obj: Base} = require("@ghasemkiani/base/obj");
-const {Script} = require("@ghasemkiani/wdom/js/script");
+import {cutil} from "@ghasemkiani/base";
+import {Obj} from "@ghasemkiani/base";
+import {Script} from "./script.js";
 
-class Thread extends Base {
+class Thread extends Obj {
 	get promises() {
 		if(!this._promises) {
 			this._promises = {};
@@ -78,4 +78,4 @@ cutil.extend(Thread.prototype, {
 	_promises: null,
 });
 
-module.exports = {Thread};
+export {Thread};

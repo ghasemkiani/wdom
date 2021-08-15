@@ -1,8 +1,8 @@
 //	@ghasemkiani/wdom/element
 
-const {cutil} = require("@ghasemkiani/base/cutil");
-const {WNode} = require("@ghasemkiani/wdom/node");
-const {xutil} = require("@ghasemkiani/wdom/xutil");
+import {cutil} from "@ghasemkiani/base";
+import {WNode} from "./node.js";
+import {xutil} from "./xutil.js";
 
 class WElement extends WNode {
 	get wnodes() {
@@ -247,4 +247,4 @@ cutil.extend(WElement.prototype, {
 	_empty: null,
 });
 
-module.exports = {WElement};
+export {WElement};

@@ -1,9 +1,9 @@
 //	@ghasemkiani/wdom/xutil
 
-const {cutil} = require("@ghasemkiani/base/cutil");
-const {Obj: Base} = require("@ghasemkiani/base/obj");
+import {cutil} from "@ghasemkiani/base";
+import {Obj} from "@ghasemkiani/base";
 
-class XUtil extends Base {
+class XUtil extends Obj {
 	unescape(s) {
 		s = cutil.asString(s);
 		s = s.replace(/&lt;/g, "<");
@@ -39,4 +39,4 @@ cutil.extend(XUtil.prototype, {
 
 const xutil = new XUtil();
 
-module.exports = {XUtil, xutil};
+export {XUtil, xutil};

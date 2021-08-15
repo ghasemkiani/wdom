@@ -1,11 +1,10 @@
 {
   "name": "@ghasemkiani/wdom",
-  "version": "1.18.0",
+  "version": "2.0.0",
   "description": "A wrapped DOM utility",
+  "type": "module",
   "main": "index.js",
-  "scripts": {
-    "test": "mocha"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://gitlab.com/ghasemkiani/wdom.git"
@@ -23,9 +22,5 @@
   "homepage": "https://gitlab.com/ghasemkiani/wdom#readme",
   "dependencies": {
     "@ghasemkiani/base": "github:ghasemkiani/base"
-  },
-  "devDependencies": {
-    "jsdom": "^12.2.0",
-    "mocha": "^5.2.0"
   }
 }

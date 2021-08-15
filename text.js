@@ -1,7 +1,7 @@
 //	@ghasemkiani/wdom/text
 
-const {cutil} = require("@ghasemkiani/base/cutil");
-const {WNode} = require("@ghasemkiani/wdom/node");
+import {cutil} from "@ghasemkiani/base";
+import {WNode} from "./node.js";
 
 class WText extends WNode {
 	get text() {
@@ -22,4 +22,4 @@ cutil.extend(WText.prototype, {
 	kind: "text",
 });
 
-module.exports = {WText};
+export {WText};
