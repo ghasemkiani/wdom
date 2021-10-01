@@ -3,6 +3,7 @@
 import {cutil} from "@ghasemkiani/base";
 import {WNode} from "./node.js";
 import {xutil} from "./xutil.js";
+import {Style} from "./css/style.js";
 
 class WElement extends WNode {
 	get wnodes() {
@@ -173,20 +174,49 @@ class WElement extends WNode {
 	css(...rest) {
 		if(rest.length === 1) {
 			if(cutil.isObject(rest[0])) {
+				return this.sty(rest[0]);
+				/*
 				let map = cutil.asObject(rest[0]);
 				for(let [name, value] of Object.entries(map)) {
 					name = xutil.toCamelCase(name);
 					this.node.style[name] = value;
 				}
+				*/
 			} else {
+				return this.sty().get(rest[0]);
+				/*
 				let name = cutil.asString(rest[0]);
 				name = xutil.toCamelCase(name);
 				return this.node.style[name];
+				*/
 			}
 		} else if(rest.length > 1) {
+			return this.sty(...rest);
+			/*
 			let [name, value] = rest;
 			name = xutil.toCamelCase(name);
 			this.node.style[name] = value;
+			*/
+		}
+		return this;
+	}
+	sty(...args) {
+		let style = new Style({string: this.attr("style")});
+		if (args.length === 0) {
+			return style;
+		} else {
+			if (args.length === 1) {
+			    if (cutil.isString(args[0])) {
+					style.string = args[0];
+				} else if (args[0] instanceof Style) {
+					cutil.assign(style, args[0]);
+				} else {
+					style.setAll(args[0]);
+				}
+			} else {
+				style.set(args[0], args[1]);
+			}
+			this.attr("style", style.string);
 		}
 		return this;
 	}

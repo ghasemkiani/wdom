@@ -53,7 +53,8 @@ const parseTag = s => {
 				wnode.attr("class", res.classList.join(" "));
 			}
 			if(res.cssList.length > 0) {
-				res.cssList.forEach(css => wnode.css(css[0], css[1]));
+				// res.cssList.forEach(css => wnode.css(css[0], css[1]));
+				res.cssList.forEach(css => wnode.sty(css[0], css[1]));
 			}
 			if(res.attrList.length > 0) {
 				res.attrList.forEach(attr => wnode.attr(attr[0], attr[1]));
