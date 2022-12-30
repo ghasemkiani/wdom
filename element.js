@@ -6,6 +6,98 @@ import {xutil} from "./xutil.js";
 import {Style} from "./css/style.js";
 
 class WElement extends WNode {
+	static {
+		cutil.extend(this.prototype, {
+			kind: "element",
+			_wnodes: null,
+			_empty: null,
+		});
+	}
+	static parseSelector(s) {
+		let res = {
+			tag: "",
+			id: "",
+			classList: [],
+			cssList: [],
+			attrList: [],
+			text: "",
+		};
+		cutil.asString(s)
+		.replace(/^([^$#.[{]*)/, tag => {
+			res.tag = tag;
+			return "";
+		})
+		.replace(/\{([^{]*)\}/g, (match, css) => {
+			res.cssList = res.cssList.concat(css.split(/;/g).filter(bi => !!bi).map(bi => /^([^:]*):?(.*)$/.exec(bi).slice(1, 3)));
+			return "";
+		})
+		.replace(/\[([^[]*)\]/g, (match, attr) => {
+			res.attrList = res.attrList.concat(attr.split(/,/g).filter(bi => !!bi).map(bi => /^([^=]*)=?(.*)$/.exec(bi).slice(1, 3)));
+			return "";
+		})
+		.replace(/#([^$#.[{]*)/g, (match, id) => {
+			res.id = id;
+			return "";
+		})
+		.replace(/\.([^$#.\[{]*)/g, (match, cls) => {
+			res.classList.push(cls);
+			return "";
+		})
+		.replace(/\$(.*)$/g, (match, text) => {
+			res.text = text;
+			return "";
+		});
+		return res;
+	}
+	static parseTag(s) {
+		let res = this.parseSelector(s);
+		cutil.asString(s)
+		.replace(/^([^$#.[{]*)/, tag => {
+			res.tag = tag;
+			return "";
+		})
+		.replace(/\{([^{]*)\}/g, (match, css) => {
+			res.cssList = res.cssList.concat(css.split(/;/g).filter(bi => !!bi).map(bi => /^([^:]*):?(.*)$/.exec(bi).slice(1, 3)));
+			return "";
+		})
+		.replace(/\[([^[]*)\]/g, (match, attr) => {
+			res.attrList = res.attrList.concat(attr.split(/,/g).filter(bi => !!bi).map(bi => /^([^=]*)=?(.*)$/.exec(bi).slice(1, 3)));
+			return "";
+		})
+		.replace(/#([^$#.[{]*)/g, (match, id) => {
+			res.id = id;
+			return "";
+		})
+		.replace(/\.([^$#.\[{]*)/g, (match, cls) => {
+			res.classList.push(cls);
+			return "";
+		})
+		.replace(/\$(.*)$/g, (match, text) => {
+			res.text = text;
+			return "";
+		});
+		return {
+			tag: res.tag,
+			f: wnode => {
+				if (res.id) {
+					wnode.attr("id", res.id);
+				}
+				if (res.classList.length > 0) {
+					wnode.attr("class", res.classList.join(" "));
+				}
+				if (res.cssList.length > 0) {
+					// res.cssList.forEach(css => wnode.css(css[0], css[1]));
+					res.cssList.forEach(css => wnode.sty(css[0], css[1]));
+				}
+				if (res.attrList.length > 0) {
+					res.attrList.forEach(attr => wnode.attr(attr[0], attr[1]));
+				}
+				if (res.text) {
+					wnode.t(res.text);
+				}
+			},
+		};
+	}
 	get wnodes() {
 		if(!this._wnodes) {
 			this._wnodes = [];
@@ -14,6 +106,12 @@ class WElement extends WNode {
 	}
 	set wnodes(wnodes) {
 		this._wnodes = wnodes;
+	}
+	get wels() {
+		return this.wnodes.filter(({kind}) => kind === "element");
+	}
+	set wels(wels) {
+		this.wnodes = wels;
 	}
 	get innerString() {
 		return this.toInnerString();
@@ -275,11 +373,37 @@ class WElement extends WNode {
 	toText() {
 		return this.wnodes.map(wnode => wnode.toText()).join("");
 	}
+	match(selector) {
+		// ns is not currently supported
+		let {tag, id, classList, cssList, attrList, text} = WElement.parseSelector(selector);
+		if (tag && tag.toLowerCase() !== this.tag.toLowerCase()) {
+			return false;
+		}
+		if (id && id !== this.attr("id")) {
+			return false;
+		}
+		let clazs = this.cls();
+		for (let claz of classList) {
+			if (!clazs[claz]) {
+				return false;
+			}
+		}
+		for (let [k, v] of attrList) {
+			if (this.attr(k) !== v) {
+				return false;
+			}
+		}
+		if (text && this.node.innerText.indexOf(text) < 0) {
+			return false;
+		}
+		return true;
+	}
+	findAll(selector) {
+		return (this.match(selector) ? [this] : []).concat(...this.wels.map(wnode => wnode.findAll(selector)));
+	}
+	find(selector) {
+		return this.match(selector) ? this : this.wels.find(wnode => wnode.find(selector)) || null;
+	}
 }
-cutil.extend(WElement.prototype, {
-	kind: "element",
-	_wnodes: null,
-	_empty: null,
-});
 
 export {WElement};

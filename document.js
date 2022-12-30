@@ -9,63 +9,6 @@ import {WElement} from "./element.js";
 import {WText} from "./text.js";
 import {WComment} from "./comment.js";
 
-const parseTag = s => {
-	let res = {
-		tag: "",
-		id: "",
-		classList: [],
-		cssList: [],
-		attrList: [],
-		text: "",
-	};
-	cutil.asString(s)
-	.replace(/^([^$#.[{]*)/, tag => {
-		res.tag = tag;
-		return "";
-	})
-	.replace(/\{([^{]*)\}/g, (match, css) => {
-		res.cssList = res.cssList.concat(css.split(/;/g).filter(bi => !!bi).map(bi => /^([^:]*):?(.*)$/.exec(bi).slice(1, 3)));
-		return "";
-	})
-	.replace(/\[([^[]*)\]/g, (match, attr) => {
-		res.attrList = res.attrList.concat(attr.split(/,/g).filter(bi => !!bi).map(bi => /^([^=]*)=?(.*)$/.exec(bi).slice(1, 3)));
-		return "";
-	})
-	.replace(/#([^$#.[{]*)/g, (match, id) => {
-		res.id = id;
-		return "";
-	})
-	.replace(/\.([^$#.\[{]*)/g, (match, cls) => {
-		res.classList.push(cls);
-		return "";
-	})
-	.replace(/\$(.*)$/g, (match, text) => {
-		res.text = text;
-		return "";
-	});
-	return {
-		tag: res.tag,
-		f: wnode => {
-			if(res.id) {
-				wnode.attr("id", res.id);
-			}
-			if(res.classList.length > 0) {
-				wnode.attr("class", res.classList.join(" "));
-			}
-			if(res.cssList.length > 0) {
-				// res.cssList.forEach(css => wnode.css(css[0], css[1]));
-				res.cssList.forEach(css => wnode.sty(css[0], css[1]));
-			}
-			if(res.attrList.length > 0) {
-				res.attrList.forEach(attr => wnode.attr(attr[0], attr[1]));
-			}
-			if(res.text) {
-				wnode.t(res.text);
-			}
-		},
-	};
-};
-
 class WDocument extends cutil.mixin(Obj, base) {
 	static {
 		cutil.extend(this.prototype, {
@@ -137,7 +80,7 @@ class WDocument extends cutil.mixin(Obj, base) {
 		return wnode;
 	}
 	c(tag, f) {
-		let res = parseTag(tag);
+		let res = WElement.parseTag(tag);
 		return this.wrap(this.document.createElement(res.tag)).chain(res.f).chain(f);
 	}
 	cx(...rest) {
@@ -149,7 +92,7 @@ class WDocument extends cutil.mixin(Obj, base) {
 		if (cutil.isNil(ns)) {
 			ns = this.ns;
 		}
-		let res = parseTag(tag);
+		let res = WElement.parseTag(tag);
 		return this.wrap(this.document.createElementNS(ns, res.tag)).chain(res.f).chain(f);
 	}
 	cc(tag, f) {
