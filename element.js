@@ -393,7 +393,7 @@ class WElement extends WNode {
 				return false;
 			}
 		}
-		if (text && this.node.innerText.indexOf(text) < 0) {
+		if (text && this.toText().indexOf(text) < 0) {
 			return false;
 		}
 		return true;
