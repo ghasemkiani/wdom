@@ -101,7 +101,12 @@ class WElement extends WNode {
 		wnode.chain(f);
 		return this;
 	}
-	cx(tag, ns, f) {
+	cx(...rest) {
+		let [tag, ns, f] = rest;
+		if (rest.length === 2 && typeof ns === "function") {
+			f = ns;
+			ns = null;
+		}
 		let wnode = this.wdocument.cx(tag, ns);
 		this.append(wnode);
 		wnode.chain(f);

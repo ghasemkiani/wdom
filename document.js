@@ -67,6 +67,16 @@ const parseTag = s => {
 };
 
 class WDocument extends cutil.mixin(Obj, base) {
+	static {
+		cutil.extend(this.prototype, {
+			defaultMime: "text/html",
+			_window:null,
+			_document: null,
+			preamble: "",
+			_root: null,
+			ns: xutil.NS_HTML,
+		});
+	}
 	getWindow() {
 		return cutil.global().window;
 	}
@@ -130,7 +140,15 @@ class WDocument extends cutil.mixin(Obj, base) {
 		let res = parseTag(tag);
 		return this.wrap(this.document.createElement(res.tag)).chain(res.f).chain(f);
 	}
-	cx(tag, ns, f) {
+	cx(...rest) {
+		let [tag, ns, f] = rest;
+		if (rest.length === 2 && typeof ns === "function") {
+			f = ns;
+			ns = null;
+		}
+		if (cutil.isNil(ns)) {
+			ns = this.ns;
+		}
 		let res = parseTag(tag);
 		return this.wrap(this.document.createElementNS(ns, res.tag)).chain(res.f).chain(f);
 	}
@@ -183,12 +201,5 @@ class WDocument extends cutil.mixin(Obj, base) {
 		return dummy.wnodes.slice(0);
 	}
 }
-cutil.extend(WDocument.prototype, {
-	defaultMime: "text/html",
-	_window:null,
-	_document: null,
-	preamble: "",
-	_root: null,
-});
 
 export {WDocument};
