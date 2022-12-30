@@ -134,6 +134,9 @@ class WDocument extends cutil.mixin(Obj, base) {
 		let res = parseTag(tag);
 		return this.wrap(this.document.createElementNS(ns, res.tag)).chain(res.f).chain(f);
 	}
+	cc(tag, f) {
+		return this.cx(tag, this.root?.ns || xutil.NS_HTML, f);
+	}
 	ch(tag, f) {
 		return this.cx(tag, xutil.NS_HTML).chain(f);
 	}
@@ -181,7 +184,7 @@ class WDocument extends cutil.mixin(Obj, base) {
 	}
 }
 cutil.extend(WDocument.prototype, {
-	mime: "text/html",
+	defaultMime: "text/html",
 	_window:null,
 	_document: null,
 	preamble: "",
