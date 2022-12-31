@@ -51,31 +51,6 @@ class WElement extends WNode {
 	}
 	static parseTag(s) {
 		let res = this.parseSelector(s);
-		cutil.asString(s)
-		.replace(/^([^$#.[{]*)/, tag => {
-			res.tag = tag;
-			return "";
-		})
-		.replace(/\{([^{]*)\}/g, (match, css) => {
-			res.cssList = res.cssList.concat(css.split(/;/g).filter(bi => !!bi).map(bi => /^([^:]*):?(.*)$/.exec(bi).slice(1, 3)));
-			return "";
-		})
-		.replace(/\[([^[]*)\]/g, (match, attr) => {
-			res.attrList = res.attrList.concat(attr.split(/,/g).filter(bi => !!bi).map(bi => /^([^=]*)=?(.*)$/.exec(bi).slice(1, 3)));
-			return "";
-		})
-		.replace(/#([^$#.[{]*)/g, (match, id) => {
-			res.id = id;
-			return "";
-		})
-		.replace(/\.([^$#.\[{]*)/g, (match, cls) => {
-			res.classList.push(cls);
-			return "";
-		})
-		.replace(/\$(.*)$/g, (match, text) => {
-			res.text = text;
-			return "";
-		});
 		return {
 			tag: res.tag,
 			f: wnode => {

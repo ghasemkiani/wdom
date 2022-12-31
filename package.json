@@ -1,26 +1,26 @@
 {
-  "name": "@ghasemkiani/wdom",
-  "version": "2.3.1",
-  "description": "A wrapped DOM utility",
-  "type": "module",
-  "main": "index.js",
-  "scripts": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://gitlab.com/ghasemkiani/wdom.git"
-  },
-  "keywords": [
-    "javascript",
-    "nodejs",
-    "dom"
-  ],
-  "author": "Ghasem Kiani",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://gitlab.com/ghasemkiani/wdom/issues"
-  },
-  "homepage": "https://gitlab.com/ghasemkiani/wdom#readme",
-  "dependencies": {
-    "@ghasemkiani/base": "github:ghasemkiani/base"
-  }
+	"name": "@ghasemkiani/wdom",
+	"version": "2.3.2",
+	"description": "A wrapped DOM utility",
+	"type": "module",
+	"main": "index.js",
+	"scripts": {},
+	"repository": {
+		"type": "git",
+		"url": "git+https://gitlab.com/ghasemkiani/wdom.git"
+	},
+	"keywords": [
+		"javascript",
+		"nodejs",
+		"dom"
+	],
+	"author": "Ghasem Kiani",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://gitlab.com/ghasemkiani/wdom/issues"
+	},
+	"homepage": "https://gitlab.com/ghasemkiani/wdom#readme",
+	"dependencies": {
+		"@ghasemkiani/base": "github:ghasemkiani/base"
+	}
 }
