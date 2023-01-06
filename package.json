@@ -1,6 +1,6 @@
 {
 	"name": "@ghasemkiani/wdom",
-	"version": "2.3.2",
+	"version": "2.3.3",
 	"description": "A wrapped DOM utility",
 	"type": "module",
 	"main": "index.js",
