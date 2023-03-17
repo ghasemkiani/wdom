@@ -22,7 +22,7 @@ class Thread extends Obj {
 				};
 				onmessage = async ({data}) => {
 					let [key, f, ...rest] = JSON.parse(data);
-					f = eval?.(f);
+					f = eval?.(`"use strict";` + f);
 					try {
 						let result = await f(call, ...rest);
 						call("resolve", key, result);
