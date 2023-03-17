@@ -22,8 +22,7 @@ class Thread extends Obj {
 				};
 				onmessage = async ({data}) => {
 					let [key, f, ...rest] = JSON.parse(data);
-					let myeval = eval;
-					f = myeval(f);
+					f = eval?.(f);
 					try {
 						let result = await f(call, ...rest);
 						call("resolve", key, result);
