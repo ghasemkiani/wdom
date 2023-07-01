@@ -61,7 +61,7 @@ class WDocument extends cutil.mixin(Obj, base) {
 	}
 	wrap(node) {
 		let wdocument = this;
-		const {Node} = this.window;
+		const {Node} = wdocument.window;
 		let Type;
 		switch (node.nodeType) {
 			case Node.ELEMENT_NODE: Type = WElement; break;
@@ -72,7 +72,7 @@ class WDocument extends cutil.mixin(Obj, base) {
 		let wnode = new Type({wdocument, node});
 		if(node.nodeType === Node.ELEMENT_NODE) {
 			for(let child of node.childNodes) {
-				let wn = this.wrap(child);
+				let wn = wdocument.wrap(child);
 				wn.parent = wnode;
 				wnode.wnodes.push(wn);
 			}
