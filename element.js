@@ -379,6 +379,12 @@ class WElement extends WNode {
 	find(selector) {
 		return this.match(selector) ? this : this.wels.find(wnode => wnode.find(selector)) || null;
 	}
+	on(ev, cb, opt) {
+		this.node.addEventListener(ev, cb, opt);
+	}
+	off(ev, cb, opt) {
+		this.node.removeEventListener(ev, cb, opt);
+	}
 }
 
 export {WElement};
