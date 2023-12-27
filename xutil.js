@@ -4,6 +4,13 @@ import {cutil} from "@ghasemkiani/base";
 import {Obj} from "@ghasemkiani/base";
 
 class XUtil extends Obj {
+	static {
+		cutil.extend(this.prototype, {
+			NS_HTML: "http://www.w3.org/1999/xhtml",
+			NS_SVG: "http://www.w3.org/2000/svg",
+			NS_MATHML: "http://www.w3.org/1998/Math/MathML",
+		});
+	}
 	unescape(s) {
 		s = cutil.asString(s);
 		s = s.replace(/&lt;/g, "<");
@@ -14,10 +21,10 @@ class XUtil extends Obj {
 	}
 	escape(s) {
 		s = cutil.asString(s);
+		s = s.replace(/&/g, "&amp;");
 		s = s.replace(/</g, "&lt;");
 		s = s.replace(/>/g, "&gt;");
 		s = s.replace(/"/g, "&quot;");
-		s = s.replace(/&/g, "&amp;");
 		return s;
 	}
 	toCamelCase(name) {
@@ -31,11 +38,6 @@ class XUtil extends Obj {
 		});
 	}
 }
-cutil.extend(XUtil.prototype, {
-	NS_HTML: "http://www.w3.org/1999/xhtml",
-	NS_SVG: "http://www.w3.org/2000/svg",
-	NS_MATHML: "http://www.w3.org/1998/Math/MathML",
-});
 
 const xutil = new XUtil();
 

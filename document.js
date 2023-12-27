@@ -116,7 +116,7 @@ class WDocument extends cutil.mixin(Obj, base) {
 	stringAll(wnodes) {
 		if(!wnodes) {
 			wnodes = [];
-		} else if(!Array.isArray(wnodes)) {
+		} else if(!cutil.isArray(wnodes)) {
 			wnodes = [wnodes];
 		}
 		return (wnodes || []).map(wnode => cutil.asString(wnode)).join("");
@@ -124,7 +124,7 @@ class WDocument extends cutil.mixin(Obj, base) {
 	textAll(wnodes) {
 		if(!wnodes) {
 			wnodes = [];
-		} else if(!Array.isArray(wnodes)) {
+		} else if(!cutil.isArray(wnodes)) {
 			wnodes = [wnodes];
 		}
 		return wnodes.map(wnode => wnode.toText()).join("");
@@ -135,7 +135,7 @@ class WDocument extends cutil.mixin(Obj, base) {
 	cloneAll(wnodes) {
 		if(!wnodes) {
 			wnodes = [];
-		} else if(!Array.isArray(wnodes)) {
+		} else if(!cutil.isArray(wnodes)) {
 			wnodes = [wnodes];
 		}
 		let dummy = this.c("dummy");
